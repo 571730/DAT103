@@ -1,13 +1,14 @@
 #!/bin/bash
+
 sum=0
+file="$1"
 echo "Hva er hendelsen?"
 read ans
-cat $1 | while read line; do
-     set -- $line
-     if [ "$ans" == "$1" ]; then
-	echo $2
-	sum=$((sum + $2))
-	echo "Sum er $sum"
-     fi
-done < <(cat $1)
-echo "$sum"
+while IFS= read line
+do
+	set -- $line
+	if [ "$ans" == "$1" ]; then
+		sum=$((sum + $2))
+	fi
+done <"$file"
+echo "$sum" 
